@@ -1,0 +1,62 @@
+
+{% extends "plantilla.html" %} 
+{% block titulo %}Crud Corte{% endblock%}
+{% block activaCorte %}text-white active{% endblock%}
+{% block contenido %}
+
+    <div class="container mt-1">
+        <div class="d-md-flex row justify-content-between ">
+            <h4 class = "mt-3 mb-3"> Corte </h4>
+            <form action="{% url 'CrudCorte' %}" class="bg-light mb-2" id="CrudCorte" method="POST">
+                <!--Toquen de autorización-->
+                {% csrf_token %}
+                <div class = "form-row">
+                    <div class="row border-light rounded ">
+                        <div class>
+                            <input name="txt_id_cor" type="hidden" class="form-control" placeholder="ID " value = "{{item.id_corte}}" />
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font" > Nombre</span>
+                            <input name="txt_nombre_cor" type="text" class="form-control" placeholder="Nombre " value = "{{item.nombre_cor}}" />
+                        </div>
+                        <div class="col-md-3 col-sm-3 col-xs-3">
+                            <span class="help-block text-muted small-font" >  Descripción</span>
+                            <input name="txt_desc_cor" type="text" class="form-control" placeholder="Descripciom" value = "{{item.descripcion_cor}}"/>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div id=" aviso">
+                    {{aviso}}
+                </div>
+                <br>
+                <div class="row mb-1">
+                    <label class="col-12 col-sm-2 offset-sm-1  mb-1">Opcionesx</label>
+                        <br>
+                        <div class="col-12 offset-sm-4 offset-md-0 mb-3">
+                            <button name="btnGuardar" type="submit"  value="btnGuardar" class="btn btn-success   m-1">Guardar</button>
+                            <button name="btnListar" type="submit"  value="btnListar" class="btn btn-primary   m-1">Listar</button>
+                            <button name="btnEliminar" type="submit"  value="btnEliminar" class="btn btn-danger   m-1">Eliminar</button>
+                        </div>
+                </div>
+            </form>
+        </div>
+        <div id="talleres" class="col-md-12 border border-primary  rounded  bg-light mt-3 mb-3 ">
+            <h4 class = "mt-3 mb-3">Listado</h4>
+
+            {% if listado %}
+            <table  class="table table-sm">
+                <th>Nombre</th>
+                <th>Descripción</th>
+                {% for item in listado %}
+                    <tr>
+                        <td>{{ item.nombre_cor}}</td>
+                        <td>{{ item.descripcion_cor}}</td>
+                        <td><a href="{% url 'CrudCorte' %}/{{item.id_corte}}/">ver</a></td>
+                    </tr>
+                    {% endfor %}
+            </table>
+            {% endif%}
+        </div>
+   </div>
+    {% endblock%}

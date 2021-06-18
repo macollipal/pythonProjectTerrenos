@@ -1,0 +1,138 @@
+
+
+{% extends "plantilla.html" %} 
+{% block titulo %} CrudUbicacion {% endblock%}
+{% block activaUbicacion %}text-white active{% endblock%}
+{% block contenido %}
+
+    <div class="container mt-1">
+        <div class="d-md-flex row justify-content-between ">
+            <div id="" class=" col-lg-12 border border-primary rounded  bg-light mt-1 mb-1 ">
+                <h4 class = "mt-3 mb-3"> Ubicación </h4>
+                
+                <form action="{% url 'CrudUbicacion' %}" class="bg-light mb-2" id="CrudUbicacion"
+                    method="POST">
+                    <!--Toquen de autorización-->
+                    {% csrf_token %}
+
+                    <div class = "form-row">
+                        <div class="row border-light rounded ">
+                        
+<!--id Bip------------------------------------------------------------------------------------------------------>
+                            <div class>
+                                <span class="help-block text-muted small-font" ></span>
+                                <input name="txt_id" type="hidden" class="form-control" value = "{{item.id_ubicacion}}" />
+                            </div>
+<!--Bip------------------------------------------------------------------------------------------------------>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <span class="help-block text-muted small-font" > Bip </span>
+                                <input name="txt_bip" type="text" class="form-control" placeholder="BIP" value = "{{item.bip_ubi}}" />
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <button name="btnBuscar" type="submit"  value="btnBuscar" class="btn btn-info   m-1">Buscar</button>
+                            </div>
+                        </div>
+                        <div class="row border-light rounded ">   
+                        
+<!--Corte---------------------------------------------------------------------------------------------------->
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <label class="help-block text-muted small-font">Corte</label>
+                                    <select name="cmbCorte" class="form-select">
+                                        {% for fila in corte %}
+
+                                            <option value="{{fila.id_corte}}" {% if fila.corte_ubi_id == item.corte_ubi_id.corte_ubi_id %}
+                                                                     selected
+                                                                     {% endif %}>
+                                                {{fila.nombre_cor}}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                             </div>
+<!--Comuna------------------------------------------------------------------------------------------------------>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <label class="help-block text-muted small-font">Comuna</label>
+                                    <select name="cmbComuna" class="form-select">
+                                        {% for fila in comuna %}
+                                            <option value="{{fila.id_comuna}}"{% if fila.comuna_ubi_id == item.comuna_ubi_id.comuna_ubi_id %}
+                                                                    selected
+                                                                    {% endif %}>
+                                                {{fila.nombre_com}}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                             </div>
+<!--Direccion------------------------------------------------------------------------------------------------------>                             
+                             <div class="col-md-6 col-sm-6 col-xs-6">
+                                <span class="help-block text-muted small-font" >  Direccion</span>
+                                <input name="txt_direccion" type="text" class="form-control" placeholder="Direccion" value = "{{item.direccion_ubi}}"/>
+                            </div>
+                        </div>
+
+                        <div class="row border-light rounded  ">
+
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <span class="help-block text-muted small-font" >  Latitud</span>
+                                <input name="txt_latitud" type="text" class="form-control" placeholder="Latitud" value = "{{item.latitud_ubi}}"/>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <span class="help-block text-muted small-font" >  Longitud</span>
+                                <input  name="txt_longitud" type="text" class="form-control" placeholder="Longitud" value = "{{item.longitud_ubi}}"/>
+                            </div>   
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <span class="help-block text-muted small-font" > Unidad Destino</span>
+                                <input name="txt_udestino" type="text" class="form-control" placeholder="Unidad Destino" value = "{{item.unidad_destino_ubi}}"/>
+                            </div>                         
+                        </div>
+                    </div>
+                    
+
+                    <div id=" aviso">
+                        {{aviso}},{{aviso2}}
+                    </div>
+                    <br>
+
+                    <div class="row mb-1">
+                        <label class="col-12 col-sm-2 offset-sm-1  mb-1">Opciones</label>
+                        <br>
+                        <div class="col-12 offset-sm-4 offset-md-0 mb-3">
+                            <button name="btnGuardar" type="submit"  value="btnGuardar" class="btn btn-success   m-1">Guardar</button>
+                            <button name="btnListar" type="submit"  value="btnListar" class="btn btn-primary   m-1">Listar</button>
+                            <button name="btnEliminar" type="submit"  value="btnEliminar" class="btn btn-danger   m-1">Eliminar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="ubicaciones" class="col-lg-12 border border-primary rounded  bg-light mt-1 mb-1">
+                    <h4 class = "mt-3 mb-3">Mensajes</h4>
+                {% if listado %}
+                    <table class="table">
+                        <th>#</th>
+                        <th>BIP</th>
+                        <th>Corte</th>
+                        <th>Comuna</th>
+                        <th>Direccion</th>
+                        <th>Latitud</th>
+                        <th>Longitud</th>
+                        <th>U destino</th>
+                     
+                    {% for item in listado %}
+                        <tr>
+                            <td>{{ item.id_ubicacion}}</td>
+                            <td>{{ item.bip_ubi}}</td>
+                            <td>{{ item.corte_ubi.nombre_cor}}</td>
+                            <td>{{ item.comuna_ubi.nombre_com}}</td>
+                            <td>{{ item.direccion_ubi}}</td>
+                            <td>{{ item.latitud_ubi}}</td>
+                            <td>{{ item.longitud_ubi}}</td>
+                            <td>{{ item.unidad_destino_ubi}}</td>
+
+                            <td><a href="{% url 'CrudUbicacion' %}/{{item.id_ubicacion}}/">ver</a></td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                {% endif%}
+
+            </div>
+        </div>
+    </div>
+    {% endblock%}

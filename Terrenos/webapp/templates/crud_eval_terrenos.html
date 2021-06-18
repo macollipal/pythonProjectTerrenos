@@ -1,0 +1,231 @@
+
+
+{% extends "plantilla.html" %} 
+{% block titulo %} Terrenos {% endblock%}
+{% block activaTerrenos %}text-white active{% endblock%}
+{% block contenido %}
+
+    <div class="container mt-1">
+        <div class="d-md-flex row justify-content-between ">
+            <div id="" class=" col-lg-12 border border-primary rounded  bg-light mt-1 mb-1 ">
+                <h4 class = "mt-3 mb-3">Riesgos de Terrenos</h4>
+                <form action="{% url 'CrudTerreno' %}" class="bg-light mb-2" id="CrudTerreno"
+                    method="POST">
+                    <!--Toquen de autorización-->
+                    {% csrf_token %}
+
+
+
+ <!--Fecha---------------------------------------------------------------------------------------------------------------->
+                    <div class = "form-row">
+
+                        <div class="row border-light rounded ">
+
+<!-- FECHA ACT---------------------------------------------------------------------------------------------------------------->
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <label class="help-block text-muted small-font">Periodo Carga</label>
+                                    <select name="cmb_fechacarga_ter" class="form-select">
+                                        {% for fila in periodo %}
+                                            <option value="{{fila.id_periodo}}"{% if fila.fecha_carga_ter_id == item.ubicacion_ter_id.fecha_carga_ter_id %}
+                                                                        selected
+                                                                     {% endif %}>
+                                                {{fila.fecha_per}}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                             </div>
+<!--id Terreno HIDDEN------------------------------------------------------------------------------------------------------>
+                            <div class>
+                                <span class="help-block text-muted small-font" ></span>
+                                <input name="txt_id_ter" type="hidden" class="form-control" value = "{{item.id_eval_terrenos}}" />
+                            </div>
+<!--BIP ------------------------------------------------------------------------------------------------------>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <label class="help-block text-muted small-font">Bip</label>
+                                    <select name="cmbBip" class="form-select">
+                                        {% for fila in ubicacion %}
+                                            <option value="{{fila.id_ubicacion}}"{% if fila.ubicacion_ter_id == item.ubicacion_ter_id.ubicacion_ter_id %}
+                                                                    selected
+                                                                    {% endif %}>
+                                                {{fila.bip_ubi}}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                             </div>
+<!--M2 Segun Inscripcion----------------------------------------------------------------------------------------------->
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <span class="help-block text-muted small-font" > M2 </span>
+                                <input name="txt_m2" type="number" class="form-control" placeholder="M2" value = "{{item.m2_inscripcion_ter}}" />
+                            </div>
+<!--Estado Diseño------------------------------------------------------------------------------------------------------>
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <label class="help-block text-muted small-font">Estado Diseño</label>
+                                    <select name="cmbEstadoDiseno" class="form-select">
+                                        {% for fila in estadodiseno %}
+
+                                            <option value="{{fila.id_estado}}"{% if fila.estadodiseno_ter_id == item.estadodiseno_ter_id.estadodiseno_ter_id %}
+                                                                     selected
+                                                                     {% endif %}>
+                                                {{fila.nombre_est}}
+                                            </option>
+
+                                        {% endfor %}
+                                    </select>
+                             </div>
+
+<!--Riesgo Intrusion--------------------------------------------------------------------------------------------------->
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <label class="help-block text-muted small-font">R Intrusion</label>
+                                    <select name="cmbRiesgoIntrucion" class="form-select">
+                                        {% for fila in riesgo %}
+                                            <option value="{{fila.id_riesgo}}"{% if fila.riesgo_intrusion_ter_id == item.riesgo_intrusion_ter_id.riesgo_intrusion_ter_id %}
+                                                                    selected
+                                                                     {% endif %}>
+                                                {{fila.nombre_rie}}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                             </div>
+<!--Riesgo Incendio---------------------------------------------------------------------------------------------------->
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <label class="help-block text-muted small-font">R Incendio</label>
+                                    <select name="cmbRiesgoIncendio" class="form-select">
+                                        {% for fila in riesgo %}
+                                            <option value="{{fila.id_riesgo}}" {% if fila.riesgo_incendio_ter_id == item.riesgo_incendio_ter_id.riesgo_incendio_ter_id %}
+                                                                    selected
+                                                                     {% endif %}>
+                                                {{fila.nombre_rie}}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                             </div>
+<!--Existe Gasto------------------------------------------------------------------------------------------------------->
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <label class="help-block text-muted small-font">Existe Gasto</label>
+
+                                    <select name="cmbExisteGasto" class="form-select">
+                                        {% for fila in existe %}
+                                            <option value="{{fila.id_existe}}" {% if fila.existe_gasto_ter_id == item.existe_gasto_ter_id.existe_gasto_ter_id %}
+                                                                    selected
+                                                                     {% endif %}>
+                                                {{fila.nombre_exi}}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                             </div>
+<!--Existe Guardia----------------------------------------------------------------------------------------------------->
+                            <div class="col-md-3 col-sm-3 col-xs-3">
+                                <label class="help-block text-muted small-font">Existe Guardia</label>
+
+                                    <select name="cmbExisteGuardia" class="form-select">
+                                        {% for fila in existe %}
+                                            <option value="{{fila.id_existe}}" {% if fila.existe_guardia_ter_id == item.existe_guardia_ter_id.existe_guardia_ter_id %}
+                                                                    selected
+                                                                     {% endif %}>
+                                                {{fila.nombre_exi}}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                             </div>
+<!--Existe Contrucciones------------------------------------------------------------------------------------------------------->
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <label class="help-block text-muted small-font">Existe Construccion</label>
+
+                                    <select name="cmbExisteConstru" class="form-select">
+                                        {% for fila in existe %}
+                                            <option value="{{fila.id_existe}}" {% if fila.existe_constru_ter_id == item.existe_constru_ter_id.existe_constru_ter_id %}
+                                                                    selected
+                                                                     {% endif %}>
+                                                {{fila.nombre_exi}}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+<!--Existe En Uso------------------------------------------------------------------------------------------------------->
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                <label class="help-block text-muted small-font">Existe En Uso</label>
+
+                                    <select name="cmbExisteEnUso" class="form-select">
+                                        {% for fila in existe %}
+                                            <option value="{{fila.id_existe}}" {% if fila.existe_enuso_ter_id == item.existe_enuso_ter_id.existe_enuso_ter_id %}
+                                                                    selected
+                                                                     {% endif %}>
+                                                {{fila.nombre_exi}}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                            </div>
+                        </div>                
+                    </div>
+                    <div id=" aviso">
+                        {{aviso}}
+                    </div>
+                    <br>
+                    <div class="row mb-1">
+                        <label class="col-12 col-sm-2 offset-sm-1  mb-1">Opciones</label>
+                        <br>
+                        <div class="col-12 offset-sm-4 offset-md-0 mb-3">
+                            <button name="btnGuardar" type="submit"  value="btnGuardar" class="btn btn-success   m-1">Guardar</button>
+                            <button name="btnListar" type="submit"  value="btnListar" class="btn btn-primary   m-1">Listar</button>
+                            <button name="btnEliminar" type="submit"  value="btnEliminar" class="btn btn-danger   m-1">Eliminar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </div>
+           <!-- <div id="ubicaciones" class="col-lg-12 border border-primary rounded  bg-light mt-1 mb-1"> -->
+                    <h4 class = "mt-3 mb-3">Terrenos</h4>
+                {% if listado %}
+                    <table class=table small table-condensed table">
+                        <th>ID Interno</th>
+                        <th>BIP</th>
+                        <th>Fecha</th>
+                        <th>M2</th>
+                        <th>Estado Diseño</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Constru</th>
+                        <th>Fecha Entrega</th>
+                        <th>Intrusión</th>
+                        <th>Incendio</th>
+                        <th>Gasto Asoc</th>
+                        <th>Guardia</th>
+                        <th>Contrucción</th>
+                        <th>En Uso</th>
+
+                    {% for item in listado %}
+                        <tr>
+                            <td>{{ item.id_eval_terrenos}}</td>
+                            <td>{{ item.ubicacion_ter.bip_ubi}}</td>
+                            <td>{{ item.fecha_carga_ter_id.fecha_per}}</td>
+                            <td>{{ item.m2_inscripcion_ter}}</td>
+<!--Estado Diseno--------------------------------------------------------------------------------------------------- -->
+                            <td> {{ item.estadodiseno_ter.nombre_est }}</td>
+
+<!--Fecha Inicio--------------------------------------------------------------------------------------------------- -->
+                            <td> {{ item.fecha_ini_diseno_ter|date:"d-m-Y" }}</td>
+<!--Fecha Constru--------------------------------------------------------------------------------------------------- -->
+                            <td> {{ item.fecha_constru_ter|date:"d-m-Y" }}</td>
+<!--Fecha Entrega--------------------------------------------------------------------------------------------------- -->
+                            <td> {{ item.fecha_entrega_ter|date:"d-m-Y" }}</td>
+<!--Intrusion------------------------------------------------------------------------------------------------------- -->
+                            <td> {{ item.riesgo_intrusion_ter.nombre_rie }}</td>
+<!--Incendio-------------------------------------------------------------------------------------------------------- -->
+                            <td> {{ item.riesgo_incendio_ter.nombre_rie }}</td>
+<!--Gasto----------------------------------------------------------------------------------------------------------- -->
+                            <td> {{ item.existe_gasto_ter.nombre_exi }}</td>
+<!--Guardia--------------------------------------------------------------------------------------------------------- -->
+                            <td> {{ item.existe_guaria_ter.nombre_exi }}</td>
+<!--Construccion--------------------------------------------------------------------------------------------------------- -->
+                            <td> {{ item.existe_constru_ter.nombre_exi }}</td>
+<!--En Uso--------------------------------------------------------------------------------------------------------- -->
+                            <td> {{ item.existe_enuso_ter.nombre_exi }}</td>
+
+                            <td><a href="{% url 'CrudTerreno' %}/{{item.id_eval_terrenos}}/">ver</a></td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                {% endif%}
+            </div>
+      <!--  </div>  -->
+    </div>
+    {% endblock%}

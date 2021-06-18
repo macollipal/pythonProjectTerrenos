@@ -1,0 +1,40 @@
+{% extends "plantilla.html" %}
+{% block titulo %}PJUD{% endblock%}
+{% block activainicio %}text-white active{% endblock%}
+{% block contenido %}
+
+{% include 'carrusel.html'%}
+<div class=" container mt-3">
+    <div class="d-md-flex row justify-content-between ">
+               <div id="Sedes" class="col-md-5 border border-primary  rounded  bg-light mt-3 mb-3 ">
+                <h4 class = "mt-3 mb-3">Nuestras Cortes</h4>
+            {% if sedes %}
+                <table class="table">
+                    <th>Sede</th>
+                    <th>Dirección</th>
+                {% for item in sedes %}
+                    <tr>
+                        <td>{{ item.sede}}</td>
+                        <td>{{ item.direccion}}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+            {% endif%}
+        </div>
+        <div id="Carreras" class=" col-md-5 border border-primary rounded  bg-light mt-3 mb-3 ">
+                <h4 class = "mt-3 mb-3">Nuestras Cortes 2</h4>
+            {% if carreras %}
+                <table class="table">
+
+                {% for item in carreras %}
+                    <tr>
+                        <td>{{ item.carrera}}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+            {% endif%}
+        </div>
+
+    </div>
+</div>
+{% endblock%}
